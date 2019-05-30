@@ -10,29 +10,76 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blue,   // appbar等の色
       ),
-      home: MyHomePage(),   // MyHomePageの呼び出し
+      debugShowCheckedModeBanner: false,  // こいつで右上のDebug表示を消せる
+      routes: <String, WidgetBuilder> {
+        '/' : (_) => new HomePage(),
+        '/Click' : (_) => Click(),
+      }
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
 
   // StatefulWidgetはbuildメソッドを直接持たないため
   // createStateでStateを生成しState内のbuildメソッドを使う(らしい)
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
    
+  final String title = "Home";
 
-  final String title = "demo";
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(   // 上に表示されてるバー
+        title: Text(title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[   // ここの中に要素の配置？
+
+            FlatButton(
+              padding: EdgeInsets.all(20.0),
+              color: Colors.lightBlue,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/Click');    // /Clickへ移動
+              },
+              child: Text('Click'),    // ボタンのラベル
+            )
+
+            
+          ],
+          
+        ),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+
+class Click extends StatefulWidget {
+  Click({Key key}) : super(key: key);
+
+  @override
+  _ClickState createState() => _ClickState();
+}
+
+class _ClickState extends State<Click> {
+   
+  final String title = "Click";
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   
-  int _i = 0;     // カウント用変数
+  int _cnt = 0;     // カウント用変数
 
   @override
 
@@ -47,18 +94,18 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             // 画面に変数の中身表示
             Text (
-              "$_i",
+              "$_cnt",
             ),
             // ボタンの設置
             FlatButton(
               padding: EdgeInsets.all(20.0),
               color: Colors.lightBlue,
               onPressed: () {
-                setState(() => _i++);   // 状態を反映させるにはsetStateを呼び出す必要があるらしい(対象など要検証)
-                print('$_i');   // コンソール側に表示
-                // _i++;
+                setState(() => _cnt++);   // 状態を反映させるにはsetStateを呼び出す必要があるらしい(対象など要検証)
+                print('$_cnt');   // コンソール側に表示
+                // _cnt++;
               },
-              child: Text('Button'),    // ボタンのラベル
+              child: Text('Count'),    // ボタンのラベル
             )
           ],
         ),
