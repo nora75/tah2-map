@@ -1,6 +1,7 @@
 import 'package:flutter_web/material.dart';
 import 'package:tah2_map/Click.dart';
 import 'package:tah2_map/HomePage.dart';
+import 'package:tah2_map/TextF.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
 		routes: <String, WidgetBuilder> {
 		'/' : (_) => HomePage(),
 		'/Click' : (_) => Click(),
+    '/TextF' : (_) => TextF(),
 		}
 	);
 	}

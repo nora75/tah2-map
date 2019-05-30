@@ -27,14 +27,22 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[	 // ここの中に要素の配置？
-
             FlatButton(
               padding: EdgeInsets.all(20.0),
               color: Colors.lightBlue,
               onPressed: () {
                 Navigator.of(context).pushNamed('/Click');		// /Clickへ移動
               },
-              child: Text('Click'),		// ボタンのラベル
+              child: Text('クリック'),		// ボタンのラベル
+            ),
+
+            FlatButton(
+              padding: EdgeInsets.all(20.0),
+              color: Colors.lightBlue,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/TextF');		// /Clickへ移動
+              },
+              child: Text('テキストフィールド'),		// ボタンのラベル
             )
 
             
