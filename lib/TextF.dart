@@ -24,7 +24,6 @@ class _TextFState extends State<TextF> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-        // 画面に変数の中身表示
           Container(
             margin: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
