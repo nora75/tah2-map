@@ -21,9 +21,25 @@ class _ClickState extends State<Click> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+
+      // appbar : 上にあるバー
       appBar: AppBar(
         title: Text(title),
       ),
+
+      //フローティングボタン
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,   // 下に配置
+        children: <Widget>[
+          FloatingActionButton(
+              child: Text("フローティング"),
+              foregroundColor: Colors.black,  // 文字色
+              onPressed: () {
+                setState(() => _cnt += 10);
+              },
+            )
+        ],),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -32,7 +48,7 @@ class _ClickState extends State<Click> {
             Text (
               "$_cnt",
             ),
-            // ボタンの設置
+            // フラットボタンの設置
             FlatButton(
               padding: EdgeInsets.all(20.0),
               color: Colors.lightBlue,
@@ -41,8 +57,8 @@ class _ClickState extends State<Click> {
                 print('$_cnt');	 // コンソール側に表示
                 // _cnt++;
               },
-              child: Text('Count'),		// ボタンのラベル
-            )
+              child: Text('フラットボタン'),		// ボタンのラベル
+            ),
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
