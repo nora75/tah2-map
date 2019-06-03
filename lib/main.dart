@@ -1,7 +1,10 @@
+// メイン
+
 import 'package:flutter_web/material.dart';
 import 'package:tah2_map/Click.dart';
 import 'package:tah2_map/HomePage.dart';
 import 'package:tah2_map/TextF.dart';
+import 'package:tah2_map/TabPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,6 +21,7 @@ class MyApp extends StatelessWidget {
 		'/' : (_) => HomePage(),
 		'/Click' : (_) => Click(),
     '/TextF' : (_) => TextF(),
+    '/TabPage' : (_) => TabPage(),
 		}
 	);
 	}

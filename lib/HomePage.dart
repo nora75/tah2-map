@@ -1,3 +1,6 @@
+// ホームページ
+// 各ページへのリンク
+
 import 'dart:html';
 import 'package:flutter_web/material.dart';
 
@@ -43,8 +46,16 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context).pushNamed('/TextF');		// /Clickへ移動
               },
               child: Text('テキストフィールド'),		// ボタンのラベル
-            )
+            ),
 
+            FlatButton(
+              padding: EdgeInsets.all(20.0),
+              color: Colors.lightBlue,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/TabPage');		// /Clickへ移動
+              },
+              child: Text('タブ'),		// ボタンのラベル
+            )
             
           ],
           
