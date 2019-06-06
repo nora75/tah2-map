@@ -55,6 +55,15 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context).pushNamed('/TabPage');		// /Clickへ移動
               },
               child: Text('タブ'),		// ボタンのラベル
+            ),
+
+            FlatButton(
+              padding: EdgeInsets.all(20.0),
+              color: Colors.lightBlue,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/Api');		// /Clickへ移動
+              },
+              child: Text('API'),		// ボタンのラベル
             )
             
           ],

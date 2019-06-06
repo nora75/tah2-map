@@ -5,6 +5,7 @@ import 'package:tah2_map/Click.dart';
 import 'package:tah2_map/HomePage.dart';
 import 'package:tah2_map/TextF.dart';
 import 'package:tah2_map/TabPage.dart';
+import 'package:tah2_map/Api.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
 		'/Click' : (_) => Click(),
     '/TextF' : (_) => TextF(),
     '/TabPage' : (_) => TabPage(),
+    '/Api' : (_) => Api(),
 		}
 	);
 	}
