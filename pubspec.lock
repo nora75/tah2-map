@@ -21,7 +21,7 @@ packages:
       name: args
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.1"
+    version: "1.5.2"
   async:
     dependency: transitive
     description:
@@ -63,7 +63,7 @@ packages:
       name: build_modules
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   build_resolvers:
     dependency: transitive
     description:
@@ -77,14 +77,14 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.0"
+    version: "1.5.1"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.5"
+    version: "3.0.6"
   build_web_compilers:
     dependency: "direct dev"
     description:
@@ -105,7 +105,7 @@ packages:
       name: built_value
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.5.0"
+    version: "6.6.0"
   charcode:
     dependency: transitive
     description:
@@ -167,7 +167,7 @@ packages:
     description:
       path: "packages/flutter_web"
       ref: HEAD
-      resolved-ref: "2f74e7aaf9c7323e844bf9ec1337f8a63d41cc98"
+      resolved-ref: "69acfd97c5a7bf0605e9a01df7749716ceb1707f"
       url: "https://github.com/flutter/flutter_web"
     source: git
     version: "0.0.0"
@@ -176,7 +176,7 @@ packages:
     description:
       path: "packages/flutter_web_ui"
       ref: HEAD
-      resolved-ref: "2f74e7aaf9c7323e844bf9ec1337f8a63d41cc98"
+      resolved-ref: "69acfd97c5a7bf0605e9a01df7749716ceb1707f"
       url: "https://github.com/flutter/flutter_web"
     source: git
     version: "0.0.0"
@@ -221,7 +221,7 @@ packages:
       name: http_multi_server
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.6"
+    version: "2.1.0"
   http_parser:
     dependency: transitive
     description:
@@ -333,7 +333,7 @@ packages:
       name: protobuf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.11"
+    version: "0.13.12"
   pub_semver:
     dependency: transitive
     description:
