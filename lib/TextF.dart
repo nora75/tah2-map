@@ -18,38 +18,38 @@ class _TextFState extends State<TextF> {
   @override
 
   Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text(title),
-    ),
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            margin: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              color: Colors.yellow[500],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: Colors.yellow[500],
                 border: Border.all(
                   width: 4.0,
                   color: Colors.black
                 ),
                 borderRadius: BorderRadius.all(
-                Radius.circular(5.0)
-        )
+                  Radius.circular(5.0)
+                )
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none
+                ), //テキストフォーム下の下線
+                keyboardType: TextInputType.multiline, 
+                maxLines: null,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
         ),
-        child: TextField(
-        decoration: InputDecoration(
-          border: InputBorder.none
-        ), //テキストフォーム下の下線
-        keyboardType: TextInputType.multiline, 
-        maxLines: null,
-        textAlign: TextAlign.center,
-        ),
-      ),
-      ],
-    ),
-    ), // This trailing comma makes auto-formatting nicer for build methods.
-  );
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
   }
 }
