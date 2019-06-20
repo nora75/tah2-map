@@ -2,6 +2,7 @@
 
 import 'dart:html';
 import 'package:flutter_web/material.dart';
+import 'package:flutter_web/widgets.dart';
 
 class TabPage extends StatelessWidget {
   TabPage({Key key}) : super(key: key);
@@ -17,10 +18,11 @@ class TabPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Porn Hub"),
+          title: Text("Tah2-Map"),
+          backgroundColor: Colors.orange[700],
 
           bottom: TabBar(
-            tabs: <Widget>[   //タブ名
+            tabs: <Widget>[   //タブ名&数設定
               Tab(text:"Location"),
               Tab(text:"History"),
             ],
@@ -29,9 +31,10 @@ class TabPage extends StatelessWidget {
 
         body: TabBarView(   //タブ
           children: <Widget>[
-            Container(    //タブ内容
-              color: Colors.red,
-              padding: EdgeInsets.only(top: 30.0),
+
+            Container(    //タブその1
+              //color: Colors.red,
+              padding: EdgeInsets.only(top: 0.0,bottom: 0.0),
               child: Column(   //横並び
                 children: <Widget>[
                   _PrintText(width, height),
@@ -40,7 +43,7 @@ class TabPage extends StatelessWidget {
               ),
             ),
             
-            Container(
+            Container(    //タブその2
               color: Colors.yellow,
               // child: Column(   //横並び
               //   children: <Widget>[
@@ -62,7 +65,7 @@ Widget _SearchBar(width) {
         
   children: <Widget>[
     Container(
-      width: width * 0.7,   // 横幅を画面の50%
+      width: width * 0.7,   // 横幅を画面の70%
       
       child: TextFormField(
         textAlign: TextAlign.center,
@@ -86,14 +89,14 @@ Widget _PrintText(width, height) {
     mainAxisAlignment: MainAxisAlignment.center,       
     children: <Widget>[
       Container(
-        color: Colors.grey[300],
-        width: width * 0.7,
-        height: height * 0.6,
+        color: Colors.pink[100],
+        width: width,   //横幅全部
+        height: height * 0.65,   //縦幅65% 70%はスマホレイアウト狂う
         child: Text(
           "TEST",
           style: TextStyle(
             fontSize: 50,
-            color: Colors.grey[800],
+            color: Colors.white,
           ),
         ),
         alignment: Alignment(0.0, 0.0),
