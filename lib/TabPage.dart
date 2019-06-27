@@ -60,7 +60,10 @@ class TabPage extends StatelessWidget {
 }
 
 Widget _SearchBar(width, context) {
+  // テキストの内容の取得や設定に使用するコントローラ
   final _controller = new TextEditingController();
+  // テキストの装飾に使用する
+  final _decorator = new InputDecoration(labelText: "検索したいキーワードを入力して下さい。");
 
   return Row(
 
@@ -73,6 +76,7 @@ Widget _SearchBar(width, context) {
       child: TextFormField(
         textAlign: TextAlign.center,
         controller: _controller,
+        decoration: _decorator,
         maxLength: 20,
       ),
       
@@ -84,8 +88,6 @@ Widget _SearchBar(width, context) {
           context: context,
           builder: (context) {
             return AlertDialog(
-              // Retrieve the text the that user has entered by using the
-              // TextEditingController.
               content: Text(_controller.text),
             );
           },
