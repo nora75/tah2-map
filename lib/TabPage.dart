@@ -14,6 +14,7 @@ class TabPage extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;   // 画面の横幅取得
     double height = MediaQuery.of(context).size.height;   // 画面の縦幅取得
 
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -38,7 +39,7 @@ class TabPage extends StatelessWidget {
               child: Column(   //横並び
                 children: <Widget>[
                   _PrintText(width, height),
-                  _SearchBar(width)
+                  _SearchBar(width, context)
                 ]
               ),
             ),
@@ -58,17 +59,20 @@ class TabPage extends StatelessWidget {
   }
 }
 
-Widget _SearchBar(width) {
+Widget _SearchBar(width, context) {
+  final _controller = new TextEditingController();
+
   return Row(
 
   mainAxisAlignment: MainAxisAlignment.center,
-        
+
   children: <Widget>[
     Container(
       width: width * 0.7,   // 横幅を画面の70%
       
       child: TextFormField(
         textAlign: TextAlign.center,
+        controller: _controller,
         maxLength: 20,
       ),
       
@@ -76,7 +80,16 @@ Widget _SearchBar(width) {
     FlatButton(
       color: Colors.lightBlue[50],
       onPressed: () {
-        // print("btn");
+        return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              // Retrieve the text the that user has entered by using the
+              // TextEditingController.
+              content: Text(_controller.text),
+            );
+          },
+        );
       },
       child: Text("検索"),
     )
