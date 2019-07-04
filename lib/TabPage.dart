@@ -88,7 +88,8 @@ Widget _SearchBar(width, context) {
           context: context,
           builder: (context) {
             return AlertDialog(
-              content: Text(_controller.text),
+              content: _controller.text?.isEmpty ?? true ? Text("入力しろ(# ･∀･)") :Text(_controller.text),
+              // content: Text(_controller.text),
             );
           },
         );
