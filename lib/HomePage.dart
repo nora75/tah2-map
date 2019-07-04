@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context).pushNamed('/Api');		// /Clickへ移動
               },
               child: Text('API'),		// ボタンのラベル
-            )
+            ),
             
           ],
           
