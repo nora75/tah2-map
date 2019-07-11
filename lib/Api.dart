@@ -87,8 +87,10 @@ class _SearchBar extends StatelessWidget{
 
     final _ApiState state = _ApiState.of(context);
 
-    Future<String> apiRequest() async {
-      return await _getData().toString();
+    Future apiRequest() async {
+      http.Response response = await http.get("https://script.google.com/macros/s/AKfycbw_j6bWqumY1wkBVg05mGTJHj_C9CZuhfJhrvRVf3PUZ4bF6R0t/exec?data=");
+      Map<String, dynamic> decoded = await json.decode(response.body);
+      state.showText(decoded.toString());
     }
 
     return Row(
@@ -107,10 +109,7 @@ class _SearchBar extends StatelessWidget{
       FlatButton(
         color: Colors.lightBlue[50],
         onPressed: () {
-          // print("btn");
-          // String data = apiRequest().toString();
-          state.showText(_controller.text);
-          
+          apiRequest();       
         },
         child: Text("検索"),
       )
@@ -145,10 +144,4 @@ class _PrintText extends StatelessWidget{
     ],
   );
   }
-}
-
-Future<Map<String, dynamic>> _getData() async {
-  http.Response response = await http.get("https://script.google.com/macros/s/AKfycbw_j6bWqumY1wkBVg05mGTJHj_C9CZuhfJhrvRVf3PUZ4bF6R0t/exec?data=");
-  Map<String, dynamic> decoded = json.decode(response.body);
-  return decoded;
 }
