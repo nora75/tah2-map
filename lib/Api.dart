@@ -95,8 +95,8 @@ class _SearchBar extends StatelessWidget{
 
     final _ApiState state = _ApiState.of(context);
 
-    Future apiRequest() async {
-      http.Response response = await http.get("https://script.google.com/macros/s/AKfycbw_j6bWqumY1wkBVg05mGTJHj_C9CZuhfJhrvRVf3PUZ4bF6R0t/exec?data=");
+    Future apiRequest(data) async {
+      http.Response response = await http.get("https://script.google.com/macros/s/AKfycbw_j6bWqumY1wkBVg05mGTJHj_C9CZuhfJhrvRVf3PUZ4bF6R0t/exec?data=" + data);
       Map<String, dynamic> decoded = await json.decode(response.body);
       state.showText(decoded);
     }
@@ -117,7 +117,7 @@ class _SearchBar extends StatelessWidget{
       FlatButton(
         color: Colors.lightBlue[50],
         onPressed: () {
-          apiRequest();       
+          apiRequest(_controller.text);       
         },
         child: Text("検索"),
       )
