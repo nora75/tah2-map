@@ -12,12 +12,18 @@ class Api extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: statefulApi(
         child: Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: true,  // 戻る先自動設定?
             title: Text('API'),
+            // 戻るボタン
+            leading: IconButton(icon:Icon(Icons.arrow_back),
+              onPressed:() => Navigator.pop(context, false),
+            )
           ),
-          
+
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
