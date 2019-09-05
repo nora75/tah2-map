@@ -12,11 +12,18 @@ class Api extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: statefulApi(
         child: Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: true,  // 戻る先自動設定?
             title: Text('API'),
+            // 戻るボタン
+            leading: IconButton(icon:Icon(Icons.arrow_back),
+              onPressed:() => Navigator.pop(context, false),
+            )
           ),
+
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -41,9 +48,9 @@ class _MyInhertitedWidget extends InheritedWidget {
   const _MyInhertitedWidget({
     Key key,
     @required Widget child,
-    @required this.text,
+    @required this.apiData,
   }) : super(key: key, child: child);
-  final String text;
+  final Map<String, dynamic> apiData;
 
   static _MyInhertitedWidget of(BuildContext context) {
     return context.inheritFromWidgetOfExactType(_MyInhertitedWidget) as _MyInhertitedWidget;
@@ -51,15 +58,16 @@ class _MyInhertitedWidget extends InheritedWidget {
 
   // textが変更されたとき傘下のwidgetに更新を通知(指示)する
   @override
-  bool updateShouldNotify(_MyInhertitedWidget old) => old.text != text;
+  bool updateShouldNotify(_MyInhertitedWidget old) => old.apiData != apiData;
 }
 
 class _ApiState extends State<statefulApi> {
-  String s = "";
+  Map<String, dynamic> map;
 
-  void showText(text) {
+  void showText(data) {
     setState(() {
-      s = text;
+      print(data["data"]);
+      map = data;
     });
   }
 
@@ -71,7 +79,7 @@ class _ApiState extends State<statefulApi> {
   Widget build(BuildContext context) {
     // _MyInhertitedWidgetのインスタンスの再生成
     return _MyInhertitedWidget(
-      text: s,    // _ApiStateの持っているsの値を再生成するインスタンスに渡す
+      apiData: map,    // _ApiStateの持っているsの値を再生成するインスタンスに渡す
       child: widget.child,    // Apiが持っているツリーの再利用
     );
 
@@ -87,10 +95,10 @@ class _SearchBar extends StatelessWidget{
 
     final _ApiState state = _ApiState.of(context);
 
-    Future apiRequest() async {
-      http.Response response = await http.get("https://script.google.com/macros/s/AKfycbw_j6bWqumY1wkBVg05mGTJHj_C9CZuhfJhrvRVf3PUZ4bF6R0t/exec?data=");
+    Future apiRequest(data) async {
+      http.Response response = await http.get("https://script.google.com/macros/s/AKfycbw_j6bWqumY1wkBVg05mGTJHj_C9CZuhfJhrvRVf3PUZ4bF6R0t/exec?data=" + data);
       Map<String, dynamic> decoded = await json.decode(response.body);
-      state.showText(decoded.toString());
+      state.showText(decoded);
     }
 
     return Row(
@@ -109,7 +117,7 @@ class _SearchBar extends StatelessWidget{
       FlatButton(
         color: Colors.lightBlue[50],
         onPressed: () {
-          apiRequest();       
+          apiRequest(_controller.text);       
         },
         child: Text("検索"),
       )
@@ -123,7 +131,7 @@ class _PrintText extends StatelessWidget{
     double width = MediaQuery.of(context).size.width;   // 画面の横幅取得
     double height = MediaQuery.of(context).size.height;   // 画面の縦幅取得
 
-    final String s = _MyInhertitedWidget.of(context).text;
+    Map<String, dynamic> map = _MyInhertitedWidget.of(context).apiData;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,       
@@ -133,7 +141,7 @@ class _PrintText extends StatelessWidget{
           width: width * 0.6,
           height: height * 0.7,
           child: Text(
-            "$s",
+            "$map",
             style: TextStyle(
               fontSize: 50,
               color: Colors.grey[800],
