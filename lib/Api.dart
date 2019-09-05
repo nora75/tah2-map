@@ -48,9 +48,9 @@ class _MyInhertitedWidget extends InheritedWidget {
   const _MyInhertitedWidget({
     Key key,
     @required Widget child,
-    @required this.apiData,
+    @required this.results,
   }) : super(key: key, child: child);
-  final Map<String, dynamic> apiData;
+  final String results;
 
   static _MyInhertitedWidget of(BuildContext context) {
     return context.inheritFromWidgetOfExactType(_MyInhertitedWidget) as _MyInhertitedWidget;
@@ -58,16 +58,16 @@ class _MyInhertitedWidget extends InheritedWidget {
 
   // textが変更されたとき傘下のwidgetに更新を通知(指示)する
   @override
-  bool updateShouldNotify(_MyInhertitedWidget old) => old.apiData != apiData;
+  bool updateShouldNotify(_MyInhertitedWidget old) => old.results != results;
 }
 
 class _ApiState extends State<statefulApi> {
-  Map<String, dynamic> map;
+  String results;
 
   void showText(data) {
     setState(() {
-      print(data["data"]);
-      map = data;
+      print(data);
+      results = data;
     });
   }
 
@@ -79,7 +79,7 @@ class _ApiState extends State<statefulApi> {
   Widget build(BuildContext context) {
     // _MyInhertitedWidgetのインスタンスの再生成
     return _MyInhertitedWidget(
-      apiData: map,    // _ApiStateの持っているsの値を再生成するインスタンスに渡す
+      results: results,    // _ApiStateの持っているsの値を再生成するインスタンスに渡す
       child: widget.child,    // Apiが持っているツリーの再利用
     );
 
@@ -96,9 +96,18 @@ class _SearchBar extends StatelessWidget{
     final _ApiState state = _ApiState.of(context);
 
     Future apiRequest(data) async {
-      http.Response response = await http.get("https://script.google.com/macros/s/AKfycbw_j6bWqumY1wkBVg05mGTJHj_C9CZuhfJhrvRVf3PUZ4bF6R0t/exec?data=" + data);
+      data = data.toString().replaceAll("　", " ");     // 全角スペースの削除
+      String results = "";
+      http.Response response = await http.get("https://script.google.com/macros/s/AKfycbxvArbjHqRgX1_lI0L2an9Nvkzv0n-Gfqyu95u0wmHkgB3AWueQ/exec?word=" + data);
       Map<String, dynamic> decoded = await json.decode(response.body);
-      state.showText(decoded);
+      for(var result in decoded['results']){
+        results += "名称 : ";
+        results += result['name'];
+        // results += "\n\t住所 : ";
+        // results += result['formatted_address'];
+        results += "\n";
+      }
+      state.showText(results);
     }
 
     return Row(
@@ -131,23 +140,24 @@ class _PrintText extends StatelessWidget{
     double width = MediaQuery.of(context).size.width;   // 画面の横幅取得
     double height = MediaQuery.of(context).size.height;   // 画面の縦幅取得
 
-    Map<String, dynamic> map = _MyInhertitedWidget.of(context).apiData;
-
+    String results = _MyInhertitedWidget.of(context).results;   
+  
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,       
       children: <Widget>[
         Container(
           color: Colors.grey[300],
           width: width * 0.6,
-          height: height * 0.7,
-          child: Text(
-            "$map",
-            style: TextStyle(
-              fontSize: 50,
-              color: Colors.grey[800],
-            ),
-          ),
           alignment: Alignment(0.0, 0.0),
+          child: SingleChildScrollView(       // 長くなったらスクロール(できるとは言っていない)
+            child: Text(
+              "$results",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.grey[800],
+              ),
+            ),
+          )
         )
     ],
   );
