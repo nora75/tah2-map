@@ -12,6 +12,7 @@ flutter:
 dependencies:
   flutter_web: any
   flutter_web_ui: any
+  google_maps: ">=3.0.0 <4.0.0"
 
 dev_dependencies:
   build_runner: ^1.4.0
