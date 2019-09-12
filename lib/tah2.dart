@@ -61,9 +61,10 @@ class _tah2State extends State<tah2> {
       body: Container(
           padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
           child: Stack(children: <Widget>[
-            Container(
-                padding: EdgeInsets.only(top: height * 0.80),
-                child: _Filtering()),
+            // Container(
+            //     padding: EdgeInsets.only(top: height * 0.80),
+            //     child: _Filtering()
+            //   ),
             Container(
               child: _PrintText(width, height),
             ),
@@ -71,11 +72,45 @@ class _tah2State extends State<tah2> {
                 padding: EdgeInsets.only(top: height * 0.01),
                 child: _SearchBar(width, context))
           ])),
+        drawer: Drawer(
+        elevation: 20.0,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('フィルタリング'),
+              decoration: BoxDecoration(color: Colors.blueAccent),
+            ),
+            ListTile(
+              title: Text('コンビニ'),
+              onTap: () {
+                konbini = !konbini;
+                print("コンビニ");
+              },
+            ),
+            ListTile(
+              title: Text('スーパー'),
+              onTap: () {
+                suuper = !suuper;
+                print("スーパー");
+              },
+            ),
+            ListTile(
+              title: Text('ドラッグストア'),
+              onTap: () {
+                drag = !drag;
+                print("ドラッグストア");
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 
   Widget _PrintText(width, height) {
     return ListView(
+      padding: EdgeInsets.only(top: 50),
       itemExtent: 50.0,
       scrollDirection: Axis.vertical,
       children: _createWidgets(s),
@@ -128,7 +163,7 @@ class _tah2State extends State<tah2> {
               style: TextStyle(fontSize: 20.0, color: Colors.red)),
         ),
         ButtonTheme(
-            child: FlatButton(
+          child: FlatButton(
           color: Colors.lightBlue[500],
           onPressed: () {
             if (_controller.text.isEmpty) {
@@ -150,7 +185,10 @@ class _tah2State extends State<tah2> {
   }
 
   Widget _Filtering() {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center, 
+      children: <Widget>[
+      FlatButton(onPressed: (){ print("aa");},child: Text("aaa"),),
       Container(
         padding: EdgeInsets.all(10.0),
         child: RaisedButton(
