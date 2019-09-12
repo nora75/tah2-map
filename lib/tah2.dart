@@ -14,37 +14,33 @@ class tah2 extends StatefulWidget {
 }
 
 class _tah2State extends State<tah2> {
-  List<String> s = ["a", "b"];
+  List<Map<String, dynamic>> s = [];
   final _controller = TextEditingController(); // テキストの内容の取得や設定に使用するコントローラ
   bool konbini = false;
+  bool suuper = false;
+  bool drag = false;
 
   Future apiRequest(data) async {
-    if (konbini) {
-      data = data + " コンビニ";
+    if(konbini) {
+      data += " コンビニ or";
     }
-    data = data.toString().replaceAll("　", " "); // 全角スペースの削除
-    // String results = "";
-    // http.Response response = await http.get("https://script.google.com/macros/s/AKfycbxvArbjHqRgX1_lI0L2an9Nvkzv0n-Gfqyu95u0wmHkgB3AWueQ/exec?word=" + data);
-    // Map<String, dynamic> decoded = await json.decode(response.body);
-    // for(var result in decoded['results']){
-    //   results += "名称 : ";
-    //   results += result['name'];
-    //   // results += "\n\t住所 : ";
-    //   // results += result['formatted_address'];
-    //   results += "\n";
-    // }
-
-    List<String> results = [];
+    if(suuper) {
+      data += " スーパー or";
+    }
+    if(drag) {
+      data += " ドラッグストア or";
+    }
+    data = data.toString().replaceAll("　", " ");     // 全角スペースの削除
+    
+    List<Map<String, dynamic>> results = [];
     s.clear();
-    http.Response response = await http.get(
-        "https://script.google.com/macros/s/AKfycbxvArbjHqRgX1_lI0L2an9Nvkzv0n-Gfqyu95u0wmHkgB3AWueQ/exec?word=" +
-            data);
+    http.Response response = await http.get("https://script.google.com/macros/s/AKfycbxvArbjHqRgX1_lI0L2an9Nvkzv0n-Gfqyu95u0wmHkgB3AWueQ/exec?word=" + data);
     Map<String, dynamic> decoded = await json.decode(response.body);
-    for (var result in decoded['results']) {
-      results.add(result['name']);
-      print(result['name']);
+    for(var result in decoded['results']){
+      results.add(result);
     }
     setState(() {
+      print("aaa");
       s = results;
     });
   }
@@ -79,25 +75,27 @@ class _tah2State extends State<tah2> {
   }
 
   Widget _PrintText(width, height) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Container(
-            //color: Colors.blue[100],
-            // width: width, // 横幅全部
-            // height: height, // 縦幅65% 70%はスマホレイアウト狂う
-            // child:
-            // Text(
-            //   "TEST",
-            //   style: TextStyle(
-            //     fontSize: 50,
-            //     color: Colors.pink[300],
-            //   ),
-            // ),
-            //alignment: Alignment(0.0, 0.0),
-            )
-      ],
+    return ListView(
+      itemExtent: 50.0,
+      scrollDirection: Axis.vertical,
+      children: _createWidgets(s),
     );
+  }
+
+  Iterable<Widget> _createWidgets(List<Map<String, dynamic>> lists) {
+    var widget = List<Widget>();
+    if (lists == null){
+      return widget;
+    }
+    for(var list in lists){
+      widget.add(
+        ListTile(
+          title: Text(list['name']),
+        )
+      );
+      print(list['name']);
+    }
+    return widget;
   }
 
   Widget _SearchBar(width, context) {
@@ -159,9 +157,12 @@ class _tah2State extends State<tah2> {
           child: Text("コンビニ"),
           color: Colors.blue,
           shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          onPressed: () {},
+          onPressed: () {
+            konbini = !konbini;
+            print("コンビニ");
+          },
         ),
       ),
       Container(
@@ -170,9 +171,12 @@ class _tah2State extends State<tah2> {
           child: Text("スーパー"),
           color: Colors.blue,
           shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          onPressed: () {},
+          onPressed: () {
+            suuper = !suuper;
+            print("スーパー");
+          },
         ),
       ),
       Container(
@@ -181,9 +185,12 @@ class _tah2State extends State<tah2> {
           child: Text("ドラッグストア"),
           color: Colors.blue,
           shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          onPressed: () {},
+          onPressed: () {
+            drag = !drag;
+            print("ドラッグストア");
+          },
         ),
       )
     ]);
