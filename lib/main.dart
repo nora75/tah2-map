@@ -46,7 +46,6 @@ class _MainPage extends State{
               child: _PrintText(width, height),
             ),
             Container(
-                padding: EdgeInsets.only(bottom : height * 0.80),
                 child: _SearchBar(width, context))
           ])),
       drawer: Drawer(
