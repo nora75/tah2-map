@@ -29,6 +29,8 @@ class MainPage extends StatefulWidget {
 
 
 class _MainPage extends State{
+    final _controller = TextEditingController(); // テキストの内容の取得や設定に使用するコントローラ
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
@@ -71,30 +73,10 @@ class _MainPage extends State{
     );
   }
   Widget _SearchBar(width, context) {
-    final _controller = TextEditingController(); // テキストの内容の取得や設定に使用するコントローラ
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        //     ButtonTheme(
-        //       child: FlatButton(
-        //         color: Colors.lightBlue[500],
-        //         onPressed: (){
-        //           return showDialog(
-        //               context: context,
-        //               builder: (context) {
-        //                 return AlertDialog(
-        //                   content: _controller.text?.isEmpty ?? true
-        //                       ? Text("未実装(# ･∀･)")
-        //                       : Text(_controller.text),
-        // /* 入力せず検索した時 */
-        //                 );
-        //               },
-        //             );
-        //         },
-        //         child:Text("現在地"),
-        //       )
-        //     ),
         Container(
           width: width * 0.7, // 横幅を画面の70%
 
@@ -110,18 +92,21 @@ class _MainPage extends State{
 
           child: TextField(
               decoration: InputDecoration.collapsed(
-                  border: InputBorder.none, hintText: "キーワードまたは座標を入力"),
+                border: InputBorder.none, hintText: "キーワードまたは座標を入力"
+              ),
 //              inputFormatters: [
 //                LengthLimitingTextInputFormatter(100), // 文字数の入力制限(カウンターを表示しない)
 //              ],
               textAlign: TextAlign.center,
               controller: _controller,
-              style: TextStyle(fontSize: 20.0, color: Colors.red)),
+              style: TextStyle(fontSize: 20.0, color: Colors.red)
+          ),
         ),
         ButtonTheme(
             child: FlatButton(
               color: Colors.lightBlue[500],
               onPressed: () {
+                // print(_controller.text); // デバッグ用
                 //hoge();
                 //             return showDialog(
                 //               context: context,
