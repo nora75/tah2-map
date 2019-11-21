@@ -86,42 +86,42 @@ class _MainPage extends State{
               width: 2.0, // 線の太さ
               color: Colors.lightBlue[500],
             ),
-            borderRadius: BorderRadius.all(Radius.circular(5.0) // かどまる君
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(5.0)), // かどまる君
           ),
 
           child: TextField(
-              decoration: InputDecoration.collapsed(
-                border: InputBorder.none, hintText: "キーワードまたは座標を入力"
-              ),
+            decoration: InputDecoration.collapsed(
+              border: InputBorder.none, hintText: "キーワードまたは座標を入力"
+            ),
 //              inputFormatters: [
 //                LengthLimitingTextInputFormatter(100), // 文字数の入力制限(カウンターを表示しない)
 //              ],
-              textAlign: TextAlign.center,
-              controller: _controller,
-              style: TextStyle(fontSize: 20.0, color: Colors.red)
+            textAlign: TextAlign.center,
+            controller: _controller,
+            style: TextStyle(fontSize: 20.0, color: Colors.red)
           ),
         ),
         ButtonTheme(
-            child: FlatButton(
-              color: Colors.lightBlue[500],
-              onPressed: () {
-                // print(_controller.text); // デバッグ用
-                //hoge();
-                //             return showDialog(
-                //               context: context,
-                //               builder: (context) {
-                //                 return AlertDialog(
-                //                   content: _controller.text?.isEmpty ?? true
-                //                       ? Text("入力しろ(# ･∀･)")
-                //                       : Text(_controller.text),
-                // /* 入力せず検索した時 */
-                //                 );
-                //               },
-                //             );
-              },
-              child: Text("検索"),
-            ))
+          child: FlatButton(
+            color: Colors.lightBlue[500],
+            onPressed: () {
+              // print(_controller.text); // デバッグ用
+              //hoge();
+              //             return showDialog(
+              //               context: context,
+              //               builder: (context) {
+              //                 return AlertDialog(
+              //                   content: _controller.text?.isEmpty ?? true
+              //                       ? Text("入力しろ(# ･∀･)")
+              //                       : Text(_controller.text),
+              // /* 入力せず検索した時 */
+              //                 );
+              //               },
+              //             );
+            },
+            child: Text("検索"),
+          )
+        )
       ],
     );
   }
