@@ -39,19 +39,17 @@ class _MainPage extends State {
         backgroundColor: Colors.blue[500],
       ),
       body: Container(
-          padding: EdgeInsets.only(top:10,bottom:10),
+          padding: EdgeInsets.only(top: 10, bottom: 10),
           child: Stack(children: <Widget>[
             Container(
               child: _PrintText(width, height),
             ),
             Container(
-                //padding: EdgeInsets.only(bottom: height * 0.80),
-                child: _SearchBar(width, context)
-            ),
+                child: _SearchBar(width, context)),
             Container(
-              padding:EdgeInsets.only(left:width * 0.7),
-              alignment: Alignment.bottomCenter,  
-              child: _RecommendeationButton(),
+              padding: EdgeInsets.only(left: width * 0.75),
+              alignment: Alignment.bottomCenter,
+              child: _RecommendeationButton(height,width),
             )
           ])),
       drawer: Drawer(
@@ -126,7 +124,7 @@ class _MainPage extends State {
               style: TextStyle(fontSize: 20.0, color: Colors.red)),
         ),
         ButtonTheme(
-          child: FlatButton(
+            child: FlatButton(
           color: Colors.lightBlue[500],
           onPressed: () {
 //hoge();
@@ -170,18 +168,28 @@ class _MainPage extends State {
     );
   }
 
-  Widget _RecommendeationButton() {
+  Widget _RecommendeationButton(height,width) {
     return Row(
       children: <Widget>[
-        ButtonTheme(
-          child: FlatButton(
-          color: Colors.lightBlue[500],
-          onPressed: () {
-
-          },
-          child: Text("GO!"),
+        SizedBox(
+          height:height * 0.2,
+          width:width * 0.2,
+          child: new ButtonTheme(
+            child: FlatButton(
+              child: Text("GO!"),
+              color: Colors.lightBlue[500],
+              shape: CircleBorder(
+                side: BorderSide(
+                  color: Colors.white,
+                  style: BorderStyle.solid,
+                ),
+              ),
+              onPressed: (){
+                // hoge
+              },
           ),
-      )],
+        ),)
+      ],
     );
   }
 
