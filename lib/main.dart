@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 void main() => runApp(Tah2());
 
 class Tah2 extends StatelessWidget {
-  // This widget is the root of your application.
+// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,8 +27,7 @@ class MainPage extends StatefulWidget {
   _MainPage createState() => _MainPage();
 }
 
-
-class _MainPage extends State{
+class _MainPage extends State {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
@@ -40,14 +39,20 @@ class _MainPage extends State{
         backgroundColor: Colors.blue[500],
       ),
       body: Container(
-          padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
+          padding: EdgeInsets.only(top:10,bottom:10),
           child: Stack(children: <Widget>[
             Container(
               child: _PrintText(width, height),
             ),
             Container(
-                padding: EdgeInsets.only(bottom : height * 0.80),
-                child: _SearchBar(width, context))
+                //padding: EdgeInsets.only(bottom: height * 0.80),
+                child: _SearchBar(width, context)
+            ),
+            Container(
+              padding:EdgeInsets.only(left:width * 0.7),
+              alignment: Alignment.bottomCenter,  
+              child: _RecommendeationButton(),
+            )
           ])),
       drawer: Drawer(
         elevation: 20.0,
@@ -71,31 +76,32 @@ class _MainPage extends State{
       ),
     );
   }
+
   Widget _SearchBar(width, context) {
     final _controller = TextEditingController(); // テキストの内容の取得や設定に使用するコントローラ
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        //     ButtonTheme(
-        //       child: FlatButton(
-        //         color: Colors.lightBlue[500],
-        //         onPressed: (){
-        //           return showDialog(
-        //               context: context,
-        //               builder: (context) {
-        //                 return AlertDialog(
-        //                   content: _controller.text?.isEmpty ?? true
-        //                       ? Text("未実装(# ･∀･)")
-        //                       : Text(_controller.text),
-        // /* 入力せず検索した時 */
-        //                 );
-        //               },
-        //             );
-        //         },
-        //         child:Text("現在地"),
-        //       )
-        //     ),
+//     ButtonTheme(
+//       child: FlatButton(
+//         color: Colors.lightBlue[500],
+//         onPressed: (){
+//           return showDialog(
+//               context: context,
+//               builder: (context) {
+//                 return AlertDialog(
+//                   content: _controller.text?.isEmpty ?? true
+//                       ? Text("未実装(# ･∀･)")
+//                       : Text(_controller.text),
+// /* 入力せず検索した時 */
+//                 );
+//               },
+//             );
+//         },
+//         child:Text("現在地"),
+//       )
+//     ),
         Container(
           width: width * 0.7, // 横幅を画面の70%
 
@@ -106,7 +112,7 @@ class _MainPage extends State{
               color: Colors.lightBlue[500],
             ),
             borderRadius: BorderRadius.all(Radius.circular(5.0) // かどまる君
-            ),
+                ),
           ),
 
           child: TextField(
@@ -120,46 +126,62 @@ class _MainPage extends State{
               style: TextStyle(fontSize: 20.0, color: Colors.red)),
         ),
         ButtonTheme(
-            child: FlatButton(
-              color: Colors.lightBlue[500],
-              onPressed: () {
-                //hoge();
-                //             return showDialog(
-                //               context: context,
-                //               builder: (context) {
-                //                 return AlertDialog(
-                //                   content: _controller.text?.isEmpty ?? true
-                //                       ? Text("入力しろ(# ･∀･)")
-                //                       : Text(_controller.text),
-                // /* 入力せず検索した時 */
-                //                 );
-                //               },
-                //             );
-              },
-              child: Text("検索"),
-            ))
+          child: FlatButton(
+          color: Colors.lightBlue[500],
+          onPressed: () {
+//hoge();
+//             return showDialog(
+//               context: context,
+//               builder: (context) {
+//                 return AlertDialog(
+//                   content: _controller.text?.isEmpty ?? true
+//                       ? Text("入力しろ(# ･∀･)")
+//                       : Text(_controller.text),
+// /* 入力せず検索した時 */
+//                 );
+//               },
+//             );
+          },
+          child: Text("検索"),
+        ))
       ],
     );
   }
+
   Widget _PrintText(width, height) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Container(
-          //color: Colors.blue[100],
-          // width: width, // 横幅全部
-          // height: height, // 縦幅65% 70%はスマホレイアウト狂う
-          // child:
-          // Text(
-          //   "TEST",
-          //   style: TextStyle(
-          //     fontSize: 50,
-          //     color: Colors.pink[300],
-          //   ),
-          // ),
-          //alignment: Alignment(0.0, 0.0),
-        )
+//color: Colors.blue[100],
+// width: width, // 横幅全部
+// height: height, // 縦幅65% 70%はスマホレイアウト狂う
+// child:
+// Text(
+//   "TEST",
+//   style: TextStyle(
+//     fontSize: 50,
+//     color: Colors.pink[300],
+//   ),
+// ),
+//alignment: Alignment(0.0, 0.0),
+            )
       ],
+    );
+  }
+
+  Widget _RecommendeationButton() {
+    return Row(
+      children: <Widget>[
+        ButtonTheme(
+          child: FlatButton(
+          color: Colors.lightBlue[500],
+          onPressed: () {
+
+          },
+          child: Text("GO!"),
+          ),
+      )],
     );
   }
 
