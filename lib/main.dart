@@ -55,8 +55,8 @@ class _MainPage extends State{
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text('フィルタリング'),
+            DrawerHeader(
+              child: Text('フィルタリング'),
               decoration: BoxDecoration(color: Colors.blueAccent),
             ),
             ListTile(
@@ -64,7 +64,27 @@ class _MainPage extends State{
               onTap: () {},
             ),
             ListTile(
+              title: Text('ATM'),
+              onTap: () {},
+            ),
+            ListTile(
               title: Text('スーパー'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('レストラン'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('居酒屋'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('病院'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('薬局'),
               onTap: () {},
             ),
           ],
