@@ -45,7 +45,7 @@ class _MainPage extends State{
           padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
           child: Stack(children: <Widget>[
             Container(
-              child: _PrintText(width, height),
+              child: _PrintText(width, height, context),
             ),
             Container(
                 child: _SearchBar(width, context))
@@ -125,25 +125,30 @@ class _MainPage extends State{
       ],
     );
   }
-  Widget _PrintText(width, height) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          //color: Colors.blue[100],
-          // width: width, // 横幅全部
-          // height: height, // 縦幅65% 70%はスマホレイアウト狂う
-          // child:
-          // Text(
-          //   "TEST",
-          //   style: TextStyle(
-          //     fontSize: 50,
-          //     color: Colors.pink[300],
-          //   ),
-          // ),
-          //alignment: Alignment(0.0, 0.0),
-        )
-      ],
+  Widget _PrintText(width, height, context) {
+    var dataList = ["Hello Flutter", "日本語", "!?"];   // テストデータ
+    return ListView.builder(  
+      padding: EdgeInsets.only(
+        top: height * 0.06,
+        left: width * 0.1,
+        right: width * 0.1
+      ),
+      itemBuilder: (BuildContext context, int index){
+        return Card(    // リストの中身
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              children: <Widget>[
+                Text(dataList[index], style: TextStyle(
+                  fontSize: 40,
+                )),
+                Text("data")
+              ],
+            ),
+            )
+        );
+      },
+      itemCount: dataList.length,   // データ件数
     );
   }
 
