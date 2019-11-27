@@ -135,17 +135,22 @@ class _MainPage extends State{
       ),
       itemBuilder: (BuildContext context, int index){
         return Card(    // リストの中身
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: <Widget>[
-                Text(dataList[index], style: TextStyle(
-                  fontSize: 40,
-                )),
-                Text("data")
-              ],
-            ),
+          child: InkWell(   // タップイベントのため
+            onTap: (){      // タップイベント
+              print(index);
+            },
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[     // ここが表示内容
+                  Text(dataList[index], style: TextStyle(
+                    fontSize: 40,
+                  )),
+                  Text("data")
+                ],
+              ),
             )
+          )
         );
       },
       itemCount: dataList.length,   // データ件数
