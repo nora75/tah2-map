@@ -31,6 +31,8 @@ class MainPage extends StatefulWidget {
 class _MainPage extends State{
     final _controller = TextEditingController(); // テキストの内容の取得や設定に使用するコントローラ
 
+  var result = [];    // 検索結果
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
@@ -105,6 +107,9 @@ class _MainPage extends State{
           child: FlatButton(
             color: Colors.lightBlue[500],
             onPressed: () {
+              // setState(() {
+              //   result.add(_controller.text);
+              // });
               // print(_controller.text); // デバッグ用
               //hoge();
               //             return showDialog(
@@ -126,7 +131,6 @@ class _MainPage extends State{
     );
   }
   Widget _PrintText(width, height, context) {
-    var dataList = ["Hello Flutter", "日本語", "!?"];   // テストデータ
     return ListView.builder(  
       padding: EdgeInsets.only(
         top: height * 0.06,
@@ -143,17 +147,16 @@ class _MainPage extends State{
               padding: EdgeInsets.all(10),
               child: Column(
                 children: <Widget>[     // ここが表示内容
-                  Text(dataList[index], style: TextStyle(
+                  Text(result[index], style: TextStyle(
                     fontSize: 40,
                   )),
-                  Text("data")
                 ],
               ),
             )
           )
         );
       },
-      itemCount: dataList.length,   // データ件数
+      itemCount: result.length,   // データ件数
     );
   }
 
