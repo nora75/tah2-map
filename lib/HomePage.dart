@@ -4,6 +4,8 @@
 import 'package:flutter/material.dart';
 import 'ApiList.dart';
 import 'ApiMap.dart';
+import 'Filter.dart';
+import 'History.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -16,6 +18,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
+  final List<Tab> myTabs = <Tab>[
+    Tab(icon: Icon(Icons.list), text: "LIST"),
+    Tab(icon: Icon(Icons.map), text: "MAP",),
+    Tab(icon: Icon(Icons.history), text: "HISTORY"),
+  ];
+  final List<Widget> myTabsContents = <Widget> [
+    ApiList(),
+    ApiMap(),
+    History(),
+  ];
   final String title = "Home Page";
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   TabController controller;
@@ -23,7 +35,7 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    controller = new TabController(vsync: this, length: 2);
+    controller = new TabController(vsync: this, length: 3);
   }
 
   @override
@@ -32,26 +44,32 @@ class _HomePageState extends State<HomePage>
     super.dispose();
   }
 
+  //TODO テキストフィールドと検索ボタンを最下部に配置する
+  //TODO 全体的にレイアウトの見直し、サイズをいい感じにする
+  //TODO インプットの引き渡し
   @override
   Widget build(BuildContext context) {
+
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Test App"),
-        backgroundColor: Colors.teal,
-      ),
-      bottomNavigationBar: new Material(
-        color: Colors.teal,
-        child: new TabBar(
-          controller: controller,
-          tabs: <Widget>[
-            new Tab(icon: new Icon(Icons.list), text: "LIST"),
-            new Tab(icon: new Icon(Icons.map), text: "MAP"),
-          ],
+      appBar: AppBar(
+        title: Text("Tah2-Map"),
+        backgroundColor: Colors.blue[500],
+        bottom: TabBar(
+            controller: controller,
+            tabs: myTabs
         ),
       ),
-      body: new TabBarView(controller: controller, children: <Widget>[
-        new ApiList(),
-        new ApiMap(),
+      drawer: Filter(),
+      body: Column(
+        children: <Widget> [
+          Expanded(
+            child: TabBarView(controller: controller, children: <Widget> [
+              ApiList(),
+              ApiMap(),
+              History(),
+            ]
+            ),
+          ),
       ]),
     );
   }
