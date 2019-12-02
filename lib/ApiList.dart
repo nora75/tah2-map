@@ -110,6 +110,17 @@ class ApiList extends StatelessWidget {
                 child: FlatButton(
                   color: Colors.lightBlue[500],
                   onPressed: () {
+                    return showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                          content: _controller.text?.isEmpty ?? true
+                              ? Text("入力しろ(# ･∀･)")
+                              : Text(_controller.text),
+                        /* 入力せず検索した時 */
+                      );
+                    },
+                    );
                     // setState(() {
                     //   result.add(_controller.text);
                     // });

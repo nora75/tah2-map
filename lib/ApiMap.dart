@@ -24,46 +24,6 @@ class ApiMap extends StatelessWidget {
             ),
             Container(child: _SearchBar(width, context))
           ])),
-      drawer: Drawer(
-        elevation: 20.0,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('フィルタリング'),
-              decoration: BoxDecoration(color: Colors.blueAccent),
-            ),
-            ListTile(
-              title: Text('コンビニ'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('ATM'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('スーパー'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('レストラン'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('居酒屋'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('病院'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('薬局'),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -110,6 +70,17 @@ class ApiMap extends StatelessWidget {
                 child: FlatButton(
                   color: Colors.lightBlue[500],
                   onPressed: () {
+                    return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: _controller.text?.isEmpty ?? true
+                              ? Text("入力しろ(# ･∀･)")
+                              : Text(_controller.text),
+                          /* 入力せず検索した時 */
+                        );
+                      },
+                    );
                     // setState(() {
                     //   result.add(_controller.text);
                     // });
