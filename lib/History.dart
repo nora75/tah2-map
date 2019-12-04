@@ -7,16 +7,12 @@ class History extends StatelessWidget {
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
     double height = MediaQuery.of(context).size.height; // 画面の縦幅取得
 
-    return Scaffold(
-      body: Container(
+      return Container(
           padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
-          child: Stack(children: <Widget>[
-            Container(
-              child: ShowHistoryList(width, height, context),
-            ),
-          ])
-      ),
-    );
+          child: Container(
+            child: ShowHistoryList(width, height, context),
+          )
+      );
   }
 }
 
