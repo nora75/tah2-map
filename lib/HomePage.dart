@@ -17,8 +17,9 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+//class _HomePageState extends State<HomePage>
+//    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> {
   final List<Tab> myTabs = <Tab>[
     Tab(icon: Icon(Icons.list), text: "LIST"),
     Tab(icon: Icon(Icons.map), text: "MAP",),
@@ -31,19 +32,20 @@ class _HomePageState extends State<HomePage>
   ];
   final String title = "Home Page";
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  TabController tabController;
+//  TabController tabController;
   TextEditingController textEditController;
+  bool mapListSwitch = true;
 
   @override
   void initState() {
     super.initState();
-    tabController = new TabController(vsync: this, length: 3);
+//    tabController = new TabController(vsync: this, length: 3);
     textEditController = new TextEditingController();
   }
 
   @override
   void dispose() {
-    tabController.dispose();
+//    tabController.dispose();
     textEditController.dispose();
     super.dispose();
   }
@@ -59,10 +61,24 @@ class _HomePageState extends State<HomePage>
       appBar: AppBar(
         title: Text("Tah2-Map"),
         backgroundColor: Colors.blue[500],
-        bottom: TabBar(
-            controller: tabController,
-            tabs: myTabs
-        ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.list),
+              onPressed: () => setState(() {
+                mapListSwitch = true;
+              }),
+            ),
+            IconButton(
+              icon: Icon(Icons.map),
+              onPressed: () => setState(() {
+                mapListSwitch = false;
+              }),
+            ),
+          ]
+//        bottom: TabBar(
+//            controller: tabController,
+//            tabs: myTabs
+//        ),
       ),
       drawer: Filter(),
       body: Column(
@@ -70,11 +86,14 @@ class _HomePageState extends State<HomePage>
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget> [
+//            Expanded(
+//              child: TabBarView(controller: tabController, children: myTabsContents)
+//            ),
             Expanded(
-              child: TabBarView(controller: tabController, children: myTabsContents)
+              child: mapListSwitch ?? true ? ApiList() : ApiMap(),
             ),
-            Container(child: SearchBar(width, context, textEditController))
-      ])
+            Container(child: SearchBar(width, context, textEditController)),
+      ]),
     );
   }
 }
