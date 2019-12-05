@@ -25,7 +25,7 @@ class _ApiList extends State<ApiList> {
       padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
       child: Stack(children: <Widget>[
         Container(
-          child: PrintText(width, height, context),
+          child: _PrintText(width, height, context),
         ),
         Container(
           child: SearchBar(width, context)
@@ -40,14 +40,43 @@ class _ApiList extends State<ApiList> {
         //     color: Colors.red,
         //     onPressed: (){
         //       setState((){
-        //         n = n + 1;
-        //         print("$n");
+        //       
         //       }
         //       );
         //     },
         //   )
         // ),
       ])
+    );
+  }
+
+  Widget _PrintText(width, height, context) {
+    return ListView.builder(  
+      padding: EdgeInsets.only(
+        top: height * 0.06,
+        left: width * 0.1,
+        right: width * 0.1
+      ),
+      itemBuilder: (BuildContext context, int index){
+        return Card(    // リストの中身
+          child: InkWell(   // タップイベントのため
+            onTap: (){      // タップイベント
+              print(index);
+            },
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[     // ここが表示内容
+                  Text(result[index], style: TextStyle(
+                    fontSize: 40,
+                  )),
+                ],
+              ),
+            )
+          )
+        );
+      },
+      itemCount: result.length,   // データ件数
     );
   }
 }

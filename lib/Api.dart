@@ -79,42 +79,6 @@ Widget SearchBar(width, context) {
   );
 }
 
-Widget PrintText(width, height, context) {
-  var result = [];    // 検索結果
-
-  return SizedBox(
-      height: height,
-      width: width,
-      child: ListView.builder(
-        padding: EdgeInsets.only(
-            top: height * 0.06,
-            left: width * 0.1,
-            right: width * 0.1
-        ),
-        itemBuilder: (BuildContext context, int index){
-          return Card(    // リストの中身
-              child: InkWell(   // タップイベントのため
-                  onTap: (){      // タップイベント
-                    print(index);
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      children: <Widget>[     // ここが表示内容
-                        Text(result[index], style: TextStyle(
-                          fontSize: 40,
-                        )),
-                      ],
-                    ),
-                  )
-              )
-          );
-        },
-        itemCount: result.length,   // データ件数
-      )
-  );
-}
-
 Widget endDrawer() {
   return Scaffold(
       drawer: Drawer(
