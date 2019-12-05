@@ -17,35 +17,26 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-//class _HomePageState extends State<HomePage>
-//    with SingleTickerProviderStateMixin {
-class _HomePageState extends State<HomePage> {
-  final List<Tab> myTabs = <Tab>[
-    Tab(icon: Icon(Icons.list), text: "LIST"),
-    Tab(icon: Icon(Icons.map), text: "MAP",),
-    Tab(icon: Icon(Icons.history), text: "HISTORY"),
-  ];
-  final List<Widget> myTabsContents = <Widget> [
-    Tab(child: ApiList()),
-    Tab(child: ApiMap()),
-    Tab(child: History()),
-  ];
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   final String title = "Home Page";
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-//  TabController tabController;
+  TabController tabController;
   TextEditingController textEditController;
   bool mapListSwitch = true;
+  List<Tab> myTabs;
+  List<Tab> myTabsContents;
 
   @override
   void initState() {
     super.initState();
-//    tabController = new TabController(vsync: this, length: 3);
+    tabController = new TabController(vsync: this, length: 2);
     textEditController = new TextEditingController();
   }
 
   @override
   void dispose() {
-//    tabController.dispose();
+    tabController.dispose();
     textEditController.dispose();
     super.dispose();
   }
@@ -56,44 +47,57 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
     double height = MediaQuery.of(context).size.height; // 画面の縦幅取得
+    myTabs = <Tab>[
+      mapListSwitch ?? true
+          ? Tab(icon: Icon(Icons.list), text: "LIST")
+          : Tab(
+              icon: Icon(Icons.map),
+              text: "MAP",
+            ),
+      Tab(icon: Icon(Icons.history), text: "HISTORY"),
+    ];
+    myTabsContents = <Tab>[
+      Tab(child: mapListSwitch ?? true ? ApiList() : ApiMap()),
+      Tab(child: History()),
+    ];
 
     return new Scaffold(
       appBar: AppBar(
         title: Text("Tah2-Map"),
         backgroundColor: Colors.blue[500],
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.list),
-              onPressed: () => setState(() {
-                mapListSwitch = true;
-              }),
-            ),
-            IconButton(
-              icon: Icon(Icons.map),
-              onPressed: () => setState(() {
-                mapListSwitch = false;
-              }),
-            ),
-          ]
-//        bottom: TabBar(
-//            controller: tabController,
-//            tabs: myTabs
-//        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.list),
+            onPressed: () => setState(() {
+              mapListSwitch = true;
+            }),
+          ),
+          IconButton(
+            icon: Icon(Icons.map),
+            onPressed: () => setState(() {
+              mapListSwitch = false;
+            }),
+          ),
+        ],
+        bottom: TabBar(
+          controller: tabController,
+          tabs: myTabs,
+        ),
       ),
       drawer: Filter(),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget> [
-//            Expanded(
-//              child: TabBarView(controller: tabController, children: myTabsContents)
-//            ),
+          children: <Widget>[
             Expanded(
-              child: mapListSwitch ?? true ? ApiList() : ApiMap(),
+              child: TabBarView(
+                controller: tabController,
+                children: myTabsContents,
+              ),
             ),
             Container(child: SearchBar(width, context, textEditController)),
-      ]),
+          ]),
     );
   }
 }
