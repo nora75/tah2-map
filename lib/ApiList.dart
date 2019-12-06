@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ApiList extends StatelessWidget {
+  final List<String> inputList;
+
+  const ApiList({Key key, this.inputList}) : super(key: key);
+
 // TODO リスト画面の作成
   @override
   Widget build(BuildContext context) {
@@ -10,9 +14,12 @@ class ApiList extends StatelessWidget {
 
     return Container(
         padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
-        child: Container(
-          child: Text("List"),
-//          child: PrintText(width, height, context),
+        child: Column(
+          children: <Widget>[
+            Text("This is List display"),
+            Text("Search text History length : " + inputList.length.toString()),
+            Text("Last search text : " + (inputList.length != 0 ? inputList.last : "")),
+          ],
         )
     );
   }

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ApiMap extends StatelessWidget {
+  final List<String> inputList;
+
+  const ApiMap({Key key, this.inputList}) : super(key: key);
 
 // TODO マップ画面の作成
   @override
@@ -11,7 +14,13 @@ class ApiMap extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
-      child: Text("Map"),
+        child: Column(
+          children: <Widget>[
+            Text("This is Map display"),
+            Text("Search text History length : " + inputList.length.toString()),
+            Text("Last search text : " + (inputList.length != 0 ? inputList.last : "")),
+          ],
+        )
     );
   }
 }

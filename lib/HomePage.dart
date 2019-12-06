@@ -2,7 +2,7 @@
 // 各ページをタブにて表示
 
 import 'package:flutter/material.dart';
-import 'Api.dart';
+//import 'Api.dart';
 import 'ApiList.dart';
 import 'ApiMap.dart';
 import 'Filter.dart';
@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage>
   bool mapListSwitch = true;
   List<Tab> myTabs;
   List<Tab> myTabsContents;
+  List<String> inputList = [];
 
   @override
   void initState() {
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage>
       Tab(icon: Icon(Icons.history), text: "HISTORY"),
     ];
     myTabsContents = <Tab>[
-      Tab(child: mapListSwitch ?? true ? ApiList() : ApiMap()),
+      Tab(child: mapListSwitch ?? true ? ApiList(inputList: inputList,) : ApiMap(inputList: inputList,)),
       Tab(child: History()),
     ];
 
@@ -100,16 +101,77 @@ class _HomePageState extends State<HomePage>
           ]),
     );
   }
+
+  // ignore: non_constant_identifier_names
+  Widget SearchBar(width, context, controller) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          width: width * 0.7, // 横幅を画面の70%
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              width: 2.0, // 線の太さ
+              color: Colors.lightBlue[500],
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(5.0)), // かどまる君
+          ),
+
+          child: TextFormField(
+            textAlign: TextAlign.center,
+            controller: controller,
+            style: TextStyle(fontSize: 20.0, color: Colors.red),
+            onFieldSubmitted: (term) {
+              setState(() {
+                inputList.add(controller.text);
+                ShowinputListText(context, inputList.last);
+              });
+            },
+            decoration: InputDecoration.collapsed(
+                border: InputBorder.none,
+                hintText: "キーワードまたは座標を入力"
+            ),
+          ),),
+        Container(
+            child: ButtonTheme(
+                child: FlatButton(
+                  color: Colors.lightBlue[500],
+                  onPressed: () {
+                     setState(() {
+                       inputList.add(controller.text);
+                       ShowinputListText(context, inputList.last);
+                     });
+                    // print(controller.text); // デバッグ用
+                    //hoge();
+                    //             return showDialog(
+                    //               context: context,
+                    //               builder: (context) {
+                    //                 return AlertDialog(
+                    //                   content: controller.text?.isEmpty ?? true
+                    //                       ? Text("入力しろ(# ･∀･)")
+                    //                       : Text(controller.text),
+                    // /* 入力せず検索した時 */
+                    //                 );
+                    //               },
+                    //             );
+                  },
+                  child: Text("検索"),
+                ))
+        )
+      ],
+    );
+  }
 }
 
-ShowInputText(context, controller) {
+ShowinputListText(context, text) {
   showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
-        content: controller.text?.isEmpty ?? true
+        content: text?.isEmpty ?? true
             ? Text("入力しろ(# ･∀･)")
-            : Text(controller.text),
+            : Text(text),
         /* 入力せず検索した時 */
       );
     },
