@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'Secret.dart';
 
 class ApiList extends StatelessWidget {
   final List<String> inputList;
-
-  const ApiList({Key key, this.inputList}) : super(key: key);
+  final Secret secret;
+  const ApiList({Key key, this.inputList, this.secret}) : super(key: key);
 
 // TODO リスト画面の作成
   @override
@@ -18,7 +19,7 @@ class ApiList extends StatelessWidget {
           children: <Widget>[
             Text("This is List display"),
             Text("Search text History length : " + inputList.length.toString()),
-            Text("Last search text : " + (inputList.length != 0 ? inputList.last : "")),
+            Text("Last search text : " + (inputList.length > 0 ? inputList.last : "")),
           ],
         )
     );

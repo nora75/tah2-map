@@ -7,6 +7,7 @@ import 'ApiList.dart';
 import 'ApiMap.dart';
 import 'Filter.dart';
 import 'History.dart';
+import 'Secret.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage>
   List<Tab> myTabs;
   List<Tab> myTabsContents;
   List<String> inputList = [];
+  final secret = new Secret(secretPath: "key.json");
 
   @override
   void initState() {
@@ -42,24 +44,23 @@ class _HomePageState extends State<HomePage>
     super.dispose();
   }
 
-  //TODO 全体的にレイアウトの見直し、サイズをいい感じにする
-  //TODO インプットの引き渡し
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
     double height = MediaQuery.of(context).size.height; // 画面の縦幅取得
+    // mapListSwitchの値を基にタブの内容の変更
     myTabs = <Tab>[
       mapListSwitch ?? true
           ? Tab(icon: Icon(Icons.list), text: "LIST")
-          : Tab(
-              icon: Icon(Icons.map),
-              text: "MAP",
-            ),
+          : Tab( icon: Icon(Icons.map), text: "MAP"),
       Tab(icon: Icon(Icons.history), text: "HISTORY"),
     ];
+    // mapListSwitchの値を基にタブの内容の変更
     myTabsContents = <Tab>[
-      Tab(child: mapListSwitch ?? true ? ApiList(inputList: inputList,) : ApiMap(inputList: inputList,)),
-      Tab(child: History()),
+      Tab(child: mapListSwitch ?? true
+          ? ApiList(inputList: inputList, secret: secret,)
+          : ApiMap(inputList: inputList, secret: secret,)),
+      Tab(child: History(histList: inputList,)),
     ];
 
     return new Scaffold(
@@ -164,6 +165,7 @@ class _HomePageState extends State<HomePage>
   }
 }
 
+// ignore: non_constant_identifier_names
 ShowinputListText(context, text) {
   showDialog(
     context: context,

@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 //    }
 //
 
-//TODO インプットの引き渡し
 //Widget SearchBar(width, context, controller) {
 //  return Row(
 //    mainAxisAlignment: MainAxisAlignment.center,

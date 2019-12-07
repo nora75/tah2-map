@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class History extends StatelessWidget {
+  final List<String> histList;
+  const History({Key key, this.histList}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
@@ -10,14 +13,13 @@ class History extends StatelessWidget {
       return Container(
           padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
           child: Container(
-            child: ShowHistoryList(width, height, context),
+            child: ShowHistoryList(width, height, context, histList),
           )
       );
   }
 }
 
-// TODO ヒストリ画面の作成
-Widget ShowHistoryList(width, height, context) {
+Widget ShowHistoryList(width, height, context, histList) {
   return MaterialApp(
     title: 'ひすとりぃ',
     home: Scaffold(

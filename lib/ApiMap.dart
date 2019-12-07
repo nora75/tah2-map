@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'Secret.dart';
 
 class ApiMap extends StatelessWidget {
   final List<String> inputList;
-
-  const ApiMap({Key key, this.inputList}) : super(key: key);
+  final Secret secret;
+  const ApiMap({Key key, this.inputList, this.secret}) : super(key: key);
 
 // TODO マップ画面の作成
   @override
@@ -18,7 +19,7 @@ class ApiMap extends StatelessWidget {
           children: <Widget>[
             Text("This is Map display"),
             Text("Search text History length : " + inputList.length.toString()),
-            Text("Last search text : " + (inputList.length != 0 ? inputList.last : "")),
+            Text("Last search text : " + (inputList.length > 0 ? inputList.last : "")),
           ],
         )
     );
