@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'Secret.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart'
     show CameraPosition, GoogleMap, GoogleMapController, LatLng;
 import 'package:location/location.dart' show Location, LocationData;
 import 'package:flutter/services.dart';
-import 'Api.dart';
 
 class ApiMap extends StatefulWidget {
-  ApiMap({Key key}) : super(key: key);
+final List<String> inputList;
+final Secret secret;
+ApiMap({Key key, this.inputList, this.secret}) : super(key: key);
 
-  @override
+@override
   State createState() => ApiState();
 }
 
@@ -61,7 +63,6 @@ class ApiState extends State<ApiMap> {
                 ),
               ),
             ),
-            Container(child: SearchBar(width, context)),
           ]));
     }
   }
