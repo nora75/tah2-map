@@ -27,8 +27,6 @@ dependencies:
   flutter_launcher_icons: ^0.7.0
   # For implement setting page
   shared_preferences_settings: ^1.0.0+1
-  # For use API key in secret storage
-  # flutter_secure_storage: ^3.3.1+1
 
 dev_dependencies:
   flutter_test:
@@ -42,7 +40,7 @@ dev_dependencies:
 flutter:
   # Use for store Api Key to file (key.json)
   assets:
-    - key.json
+    - assets/key.json
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

@@ -2,12 +2,13 @@
 // 各ページをタブにて表示
 
 import 'package:flutter/material.dart';
+
 //import 'Api.dart';
-import 'ApiList.dart';
-import 'ApiMap.dart';
 import 'Filter.dart';
 import 'History.dart';
 import 'Secret.dart';
+import 'SettingPage.dart';
+import 'Tab.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -24,12 +25,13 @@ class _HomePageState extends State<HomePage>
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   TabController tabController;
   TextEditingController textEditController;
+  // mapListSwitch true : LIST View, false : MAP View
   bool mapListSwitch = true;
-  List<Tab> myTabs;
-  List<Tab> myTabsContents;
+//  _onViewChange = StreamController<String>();
+  List<Widget> myTabs;
+  List<Widget> myTabsContents;
   List<String> inputList = [];
-  final secret = new Secret(secretPath: "key.json");
-
+  final secret = new Secret(secretPath: "assets/key.json");
   @override
   void initState() {
     super.initState();
@@ -41,6 +43,7 @@ class _HomePageState extends State<HomePage>
   void dispose() {
     tabController.dispose();
     textEditController.dispose();
+//    _onViewChange.close();
     super.dispose();
   }
 
@@ -49,17 +52,19 @@ class _HomePageState extends State<HomePage>
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
     double height = MediaQuery.of(context).size.height; // 画面の縦幅取得
     // mapListSwitchの値を基にタブの内容の変更
-    myTabs = <Tab>[
-      mapListSwitch ?? true
-          ? Tab(icon: Icon(Icons.list), text: "LIST")
-          : Tab( icon: Icon(Icons.map), text: "MAP"),
+    myTabs = <Widget>[
+//      mapListSwitch ?? true
+//          ? Tab(icon: Icon(Icons.list), text: "LIST")
+//          : Tab( icon: Icon(Icons.map), text: "MAP"),
+      MyTabIcon(inputList: inputList, secret: secret,),
       Tab(icon: Icon(Icons.history), text: "HISTORY"),
     ];
     // mapListSwitchの値を基にタブの内容の変更
-    myTabsContents = <Tab>[
-      Tab(child: mapListSwitch ?? true
-          ? ApiList(inputList: inputList, secret: secret,)
-          : ApiMap(inputList: inputList, secret: secret,)),
+    myTabsContents = <Widget>[
+//      Tab(child: mapListSwitch ?? true
+//          ? ApiList(inputList: inputList, secret: secret,)
+//          : ApiMap(inputList: inputList, secret: secret,)),
+      MyTabContents(inputList: inputList, secret: secret,),
       Tab(child: History(histList: inputList,)),
     ];
 
@@ -69,16 +74,14 @@ class _HomePageState extends State<HomePage>
         backgroundColor: Colors.blue[500],
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.list),
-            onPressed: () => setState(() {
-              mapListSwitch = true;
-            }),
-          ),
-          IconButton(
-            icon: Icon(Icons.map),
-            onPressed: () => setState(() {
-              mapListSwitch = false;
-            }),
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SettingPage()
+                  ));
+            },
           ),
         ],
         bottom: TabBar(
@@ -126,7 +129,7 @@ class _HomePageState extends State<HomePage>
             onFieldSubmitted: (term) {
               setState(() {
                 inputList.add(controller.text);
-                ShowinputListText(context, inputList.last);
+                _showInputListText(context, inputList.last);
               });
             },
             decoration: InputDecoration.collapsed(
@@ -141,7 +144,7 @@ class _HomePageState extends State<HomePage>
                   onPressed: () {
                      setState(() {
                        inputList.add(controller.text);
-                       ShowinputListText(context, inputList.last);
+                       _showInputListText(context, inputList.last);
                      });
                     // print(controller.text); // デバッグ用
                     //hoge();
@@ -165,17 +168,15 @@ class _HomePageState extends State<HomePage>
   }
 }
 
-// ignore: non_constant_identifier_names
-ShowinputListText(context, text) {
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        content: text?.isEmpty ?? true
-            ? Text("入力しろ(# ･∀･)")
-            : Text(text),
-        /* 入力せず検索した時 */
-      );
-    },
-  );
-}
+// 無駄に 'async' !
+void _showInputListText(context, text) async => showDialog(
+  context: context,
+  builder: (context) {
+    return AlertDialog(
+      content: text?.isEmpty ?? true
+          ? Text("入力しろ(# ･∀･)")
+          : Text(text),
+      /* 入力せず検索した時 */
+    );
+  },
+);
