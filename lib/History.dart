@@ -2,26 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class History extends StatelessWidget {
+  final List<String> histList;
+  const History({Key key, this.histList}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
     double height = MediaQuery.of(context).size.height; // 画面の縦幅取得
 
-    return Scaffold(
-      body: Container(
+      return Container(
           padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
-          child: Stack(children: <Widget>[
-            Container(
-              child: ShowHistoryList(width, height, context),
-            ),
-          ])
-      ),
-    );
+          child: Container(
+            child: ShowHistoryList(width, height, context, histList),
+          )
+      );
   }
 }
 
-// TODO ヒストリ画面の作成
-Widget ShowHistoryList(width, height, context) {
+Widget ShowHistoryList(width, height, context, histList) {
   return MaterialApp(
     title: 'ひすとりぃ',
     home: Scaffold(

@@ -11,7 +11,7 @@ class Tah2 extends StatelessWidget {
 	return MaterialApp(
 		// title: 'Flutter Demo',
 		theme: ThemeData(
-		primarySwatch: Colors.blue,	 // appbar等の色
+      primarySwatch: Colors.blue,	 // appbar等の色
 		),
 		debugShowCheckedModeBanner: false,	// こいつで右上のDebug表示を消せる
 		home: HomePage(),

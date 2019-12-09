@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'Api.dart';
+import 'Secret.dart';
 
 class ApiList extends StatefulWidget {
-  ApiList({Key key}): super(key: key);
+  final List<String> inputList;
+  final Secret secret;
+  ApiList({Key key, this.inputList, this.secret}) : super(key: key);
 
   @override
   _ApiList createState() => _ApiList();
 }
 
 class _ApiList extends State<ApiList> {
-  final _controller = TextEditingController(); // テキストの内容の取得や設定に使用するコントローラ
-
-  var result = [];    // 検索結果
 
   // var n = 0;
 
+
+// TODO リスト画面の作成
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
@@ -26,9 +27,6 @@ class _ApiList extends State<ApiList> {
       child: Stack(children: <Widget>[
         Container(
           child: _PrintText(width, height, context),
-        ),
-        Container(
-          child: SearchBar(width, context)
         ),
         // Container(
         // child: Text(n.toString()),
@@ -47,7 +45,7 @@ class _ApiList extends State<ApiList> {
         //   )
         // ),
       ])
-    );
+   );
   }
 
   Widget _PrintText(width, height, context) {
@@ -67,7 +65,7 @@ class _ApiList extends State<ApiList> {
               padding: EdgeInsets.all(10),
               child: Column(
                 children: <Widget>[     // ここが表示内容
-                  Text(result[index], style: TextStyle(
+                  Text(widget.inputList[index], style: TextStyle(
                     fontSize: 40,
                   )),
                 ],
@@ -76,7 +74,7 @@ class _ApiList extends State<ApiList> {
           )
         );
       },
-      itemCount: result.length,   // データ件数
+      itemCount: widget.inputList.length,   // データ件数
     );
   }
 }
