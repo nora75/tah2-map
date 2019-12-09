@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart' show CameraPosition, GoogleMap, GoogleMapController, LatLng;
+import 'package:google_maps_flutter/google_maps_flutter.dart'
+    show CameraPosition, GoogleMap, GoogleMapController, LatLng;
 import 'package:location/location.dart' show Location, LocationData;
 import 'package:flutter/services.dart';
 import 'Api.dart';
@@ -48,10 +49,6 @@ class ApiState extends State<ApiMap> {
           padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
           child: Stack(children: <Widget>[
             Container(
-              child: PrintText(width, height, context),
-            ),
-            Container(child: SearchBar(width, context)),
-            Container(
               width: width,
               height: height,
               child: GoogleMap(
@@ -63,7 +60,8 @@ class ApiState extends State<ApiMap> {
                   zoom: 17.0,
                 ),
               ),
-            )
+            ),
+            Container(child: SearchBar(width, context)),
           ]));
     }
   }
