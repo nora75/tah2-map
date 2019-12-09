@@ -11,10 +11,6 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 
-    // dependencies {
-    //     classpath 'com.android.tools.build:gradle:3.3.0'
-    //     classpath 'com.google.gms:google-services:4.2.0'
-    // }
 }
 
 allprojects {
@@ -40,6 +36,17 @@ subprojects {
     project.configurations.all {
         configurations.all {
             resolutionStrategy.force 'androidx.loader:loader:1.0.0'
+            // for google_map_flutter
+            resolutionStrategy.force 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+            resolutionStrategy.force 'androidx.viewpager:viewpager:1.0.0'
+            resolutionStrategy.force 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+            resolutionStrategy.force 'androidx.slidingpanelayout:slidingpanelayout:1.0.0'
+            resolutionStrategy.force 'androidx.legacy:legacy-support-core-utils:1.0.0'
+            resolutionStrategy.force 'com.google.android.gms:play-services-basement:17.0.0'
+            resolutionStrategy.force 'androidx.cursoradapter:cursoradapter:1.0.0'
+            resolutionStrategy.force 'androidx.asynclayoutinflater:asynclayoutinflater:1.0.0'
+            resolutionStrategy.force 'com.google.android.gms:play-services-base:17.0.0'
+            // for google_map_flutter
         }
     }
 }
