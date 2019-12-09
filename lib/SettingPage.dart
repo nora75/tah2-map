@@ -14,8 +14,8 @@ class SettingPage extends StatelessWidget {
           title: '検索結果の表示方式を選択して下さい。',
           defaultKey: "LIST",
           values: {
-            'LIST': 'リストビューを使用する',
             'MAP': 'マップビューを使用する',
+            'LIST': 'リストビューを使用する',
           },
         ),
       ],

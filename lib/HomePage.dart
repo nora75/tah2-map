@@ -25,25 +25,30 @@ class _HomePageState extends State<HomePage>
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   TabController tabController;
   TextEditingController textEditController;
-  // mapListSwitch true : LIST View, false : MAP View
-  bool mapListSwitch = true;
-//  _onViewChange = StreamController<String>();
   List<Widget> myTabs;
   List<Widget> myTabsContents;
   List<String> inputList = [];
   final secret = new Secret(secretPath: "assets/key.json");
+
   @override
   void initState() {
     super.initState();
     tabController = new TabController(vsync: this, length: 2);
     textEditController = new TextEditingController();
+    myTabs = <Widget>[
+      MyTabIcon(inputList: inputList, secret: secret,),
+      Tab(icon: Icon(Icons.history), text: "HISTORY"),
+    ];
+    myTabsContents = <Widget>[
+      MyTabContents(inputList: inputList, secret: secret,),
+      Tab(child: History(histList: inputList,)),
+    ];
   }
 
   @override
   void dispose() {
     tabController.dispose();
     textEditController.dispose();
-//    _onViewChange.close();
     super.dispose();
   }
 
@@ -51,22 +56,6 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
     double height = MediaQuery.of(context).size.height; // 画面の縦幅取得
-    // mapListSwitchの値を基にタブの内容の変更
-    myTabs = <Widget>[
-//      mapListSwitch ?? true
-//          ? Tab(icon: Icon(Icons.list), text: "LIST")
-//          : Tab( icon: Icon(Icons.map), text: "MAP"),
-      MyTabIcon(inputList: inputList, secret: secret,),
-      Tab(icon: Icon(Icons.history), text: "HISTORY"),
-    ];
-    // mapListSwitchの値を基にタブの内容の変更
-    myTabsContents = <Widget>[
-//      Tab(child: mapListSwitch ?? true
-//          ? ApiList(inputList: inputList, secret: secret,)
-//          : ApiMap(inputList: inputList, secret: secret,)),
-      MyTabContents(inputList: inputList, secret: secret,),
-      Tab(child: History(histList: inputList,)),
-    ];
 
     return new Scaffold(
       appBar: AppBar(
@@ -146,19 +135,6 @@ class _HomePageState extends State<HomePage>
                        inputList.add(controller.text);
                        _showInputListText(context, inputList.last);
                      });
-                    // print(controller.text); // デバッグ用
-                    //hoge();
-                    //             return showDialog(
-                    //               context: context,
-                    //               builder: (context) {
-                    //                 return AlertDialog(
-                    //                   content: controller.text?.isEmpty ?? true
-                    //                       ? Text("入力しろ(# ･∀･)")
-                    //                       : Text(controller.text),
-                    // /* 入力せず検索した時 */
-                    //                 );
-                    //               },
-                    //             );
                   },
                   child: Text("検索"),
                 ))
