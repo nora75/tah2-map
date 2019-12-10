@@ -20,13 +20,31 @@ class History extends StatelessWidget {
 }
 
 Widget ShowHistoryList(width, height, context, histList) {
-  return MaterialApp(
-    title: 'ひすとりぃ',
-    home: Scaffold(
-      body: const Center(
-        child: const Text('ひすとりぃ'),
-      ),
+  return ListView.builder(
+    padding: EdgeInsets.only(
+        top: height * 0.06,
+        left: width * 0.1,
+        right: width * 0.1
     ),
-    debugShowCheckedModeBanner: false,	// こいつで右上のDebug表示を消せる
+    itemBuilder: (BuildContext context, int index){
+      return Card(    // リストの中身
+          child: InkWell(   // タップイベントのため
+              onTap: (){      // タップイベント
+                print(index);
+            },
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              children: <Widget>[     // ここが表示内容
+                Text(histList[index], style: TextStyle(
+                  fontSize: 40,
+                )),
+              ],
+            ),
+          )
+      )
+      );
+    },
+    itemCount: histList.length,   // データ件数
   );
 }
