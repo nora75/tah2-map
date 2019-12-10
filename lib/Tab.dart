@@ -6,7 +6,7 @@ import 'ApiMap.dart';
 
 // ignore: must_be_immutable
 class MyTabIcon extends StatelessWidget{
-  final List<String> inputList;
+  final Stream<List<String>> inputList;
   final secret;
 
   MyTabIcon({Key key, this.inputList, this.secret}) : super(key: key);
@@ -29,7 +29,8 @@ class MyTabIcon extends StatelessWidget{
 
 // ignore: must_be_immutable
 class MyTabContents extends StatelessWidget{
-  final List<String> inputList;
+//  final List<String> inputList;
+  final Stream<List<String>> inputList;
   final secret;
 
   MyTabContents({Key key, this.inputList, this.secret}) : super(key: key);
