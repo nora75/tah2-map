@@ -39,15 +39,13 @@ class ApiList extends StatelessWidget {
                     return const Text('検索して下さい');
                   }
                   // 検索された時の処理はここ
-                  return Column(
-                    children: <Widget>[],
-                  );
+                  return PrintText(width, height, inputList, context);
               }
             }));
   }
 }
 
-Widget PrintText(width, height, context) {
+Widget PrintText(width, height, inputList, context) {
   var result = []; // 検索結果
 
   return SizedBox(
@@ -70,7 +68,7 @@ Widget PrintText(width, height, context) {
                     child: Column(
                       children: <Widget>[
                         // ここが表示内容
-                        Text(result[index],
+                        Text(inputList.data[index],
                             style: TextStyle(
                               fontSize: 40,
                             )),
@@ -78,6 +76,6 @@ Widget PrintText(width, height, context) {
                     ),
                   )));
         },
-        itemCount: result.length, // データ件数
+        itemCount: inputList.data.length, // データ件数
       ));
 }
