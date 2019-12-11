@@ -46,7 +46,6 @@ class ApiList extends StatelessWidget {
 }
 
 Widget PrintText(width, height, inputList, context) {
-  var result = []; // 検索結果
 
   return SizedBox(
       height: height,
