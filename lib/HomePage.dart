@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage>
                 children: myTabsContents,
               ),
             ),
-            Container(child: Api(sink: inputs.sink, resultSink: results.sink)),
+            Container(child: Api(sink: inputs.sink, resultSink: results.sink, secret: secret)),
           ]),
     );
   }

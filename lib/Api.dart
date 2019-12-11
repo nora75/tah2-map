@@ -1,12 +1,17 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
+import 'package:http/http.dart' as http;
+import 'Secret.dart';
 
 class Api extends StatefulWidget {
   final StreamSink<List<String>> sink;
   final StreamSink<List<String>> resultSink;
+  final Secret secret;
 
-  Api({Key key, this.sink, this.resultSink}) : super(key: key);
+  Api({Key key, this.sink, this.resultSink, this.secret}) : super(key: key);
 
   @override
   _Api createState() => _Api();
@@ -60,7 +65,7 @@ class _Api extends State<Api> {
                   color: Colors.lightBlue[500],
                   onPressed: () {
                     _toSink(widget.sink, inputList, controller.text, context);
-                    _showResult(widget.resultSink, result, controller.text);
+                    _apiRequest(widget.resultSink, controller.text, widget.secret);
                   },
                   child: Text("検索"),
                 ))
@@ -93,4 +98,15 @@ void _toSink(sink, inputList, text, context) {
 void _showResult(sink, result, text) {
   result.add(text);
   sink.add(result);
+}
+
+void _apiRequest(sink, text, secret) async {
+  String listKey = secret.listKey;
+  List<String> results = [];
+  http.Response response = await http.get("https://maps.googleapis.com/maps/api/place/textsearch/json?language=ja&key=" + listKey + "&query=" + text);
+  Map<String, dynamic> decoded = await json.decode(response.body);
+  for(var result in decoded['results']){
+    results.add(result['name']);
+  }
+  sink.add(results);
 }
