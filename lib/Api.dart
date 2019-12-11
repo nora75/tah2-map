@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class Api extends StatefulWidget {
   final StreamSink<List<String>> sink;
+  final StreamSink<List<String>> resultSink;
 
-  Api({Key key, this.sink}) : super(key: key);
+  Api({Key key, this.sink, this.resultSink}) : super(key: key);
 
   @override
   _Api createState() => _Api();
@@ -14,6 +15,7 @@ class Api extends StatefulWidget {
 class _Api extends State<Api> {
   TextEditingController controller = new TextEditingController();
   List<String> inputList = [];
+  List<String> result = [];
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,7 @@ class _Api extends State<Api> {
                   color: Colors.lightBlue[500],
                   onPressed: () {
                     _toSink(widget.sink, inputList, controller.text, context);
+                    _showResult(widget.resultSink, result, controller.text);
                   },
                   child: Text("検索"),
                 ))
@@ -85,4 +88,9 @@ void _toSink(sink, inputList, text, context) {
   inputList.add(text);
   sink.add(inputList);
   _showInputListText(context, text);
+}
+
+void _showResult(sink, result, text) {
+  result.add(text);
+  sink.add(result);
 }
