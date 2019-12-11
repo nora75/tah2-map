@@ -12,6 +12,7 @@ class Api extends StatefulWidget {
 }
 
 class _Api extends State<Api> {
+  TextEditingController controller = new TextEditingController();
   List<String> inputList = [];
 
   @override
@@ -24,7 +25,6 @@ class _Api extends State<Api> {
 
 // ignore: non_constant_identifier_names
   Widget SearchBar(width, context) {
-    TextEditingController controller = new TextEditingController();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
