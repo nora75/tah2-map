@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage>
   List<Widget> myTabsContents;
   final secret = new Secret(secretPath: "assets/key.json");
   final inputs = StreamController<List<String>>.broadcast();
+  final results = StreamController<List<String>>.broadcast();
 
   @override
   void initState() {
@@ -38,7 +39,7 @@ class _HomePageState extends State<HomePage>
       Tab(icon: Icon(Icons.history), text: "HISTORY"),
     ];
     myTabsContents = <Widget>[
-      MyTabContents(inputList: inputs.stream, secret: secret,),
+      MyTabContents(inputList: inputs.stream, result: results.stream, secret: secret,),
       Tab(child: History(histList: inputs.stream,)),
     ];
   }
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage>
   @override
   void dispose() {
     tabController.dispose();
+    results.close();
     inputs.close();
     super.dispose();
   }
@@ -88,7 +90,7 @@ class _HomePageState extends State<HomePage>
                 children: myTabsContents,
               ),
             ),
-            Container(child: Api(sink: inputs.sink)),
+            Container(child: Api(sink: inputs.sink, resultSink: results.sink, secret: secret)),
           ]),
     );
   }
