@@ -31,13 +31,13 @@ class ApiList extends StatelessWidget {
           }
           switch (result.connectionState) {
           // ロード待ちの時らしいんだけどまあないと思う。
-            case ConnectionState.waiting:
-              return const Text('ロード中....');
+            // case ConnectionState.waiting:
+            //   return const Text('ロード中....');
             default:
             // まだ何も検索されてない時はここ(初期状態及び起動後)
-              // if (result.data == null) {
-              //   return const Text('検索して下さい');
-              // }
+              if (result.data == null) {
+                return const Text('検索して下さい');
+              }
               // 検索された時の処理はここ
               return PrintText(width, height, result, context);
           }

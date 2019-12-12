@@ -93,7 +93,7 @@ void _showInputListText(context, text) async =>
 void _toSink(sink, inputList, text, context) {
   inputList.add(text);
   sink.add(inputList);
-  _showInputListText(context, text);
+  // _showInputListText(context, text);
 }
 
 void _showResult(sink, result, text) {

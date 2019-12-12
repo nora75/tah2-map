@@ -24,11 +24,11 @@ class ApiMap extends StatelessWidget {
               }
               switch (inputList.connectionState) {
               // ロード待ちの時らしいんだけどまあないと思う。
-                case ConnectionState.waiting:
-                  return const Text('ロード中....');
+                // case ConnectionState.waiting:
+                //   return const Text('ロード中....');
                 default:
                 // まだ何も検索されてない時はここ(初期状態及び起動後)
-                  if (inputList.data.isEmpty) {
+                  if (inputList.data == null) {
                     return const Text('検索して下さい');
                   }
                   // 検索された時の処理はここ

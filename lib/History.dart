@@ -40,10 +40,10 @@ class _History extends State<History> {
             return Text('Error: ${list.error}');
           }
           switch (list.connectionState) {
-            case ConnectionState.waiting:
-              return const Text('起動中...');
+            // case ConnectionState.waiting:
+            //   return const Text('起動中...');
             default:
-              if (list.data.isEmpty) {
+              if (list.data == null) {
                 return const Text('履歴画面');
               }
               return ListView(
