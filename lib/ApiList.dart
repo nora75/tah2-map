@@ -3,10 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'Secret.dart';
 
 class ApiList extends StatelessWidget {
-  Stream<List<String>> result;
+  Stream<List<String>> inputList;
   final Secret secret;
 
-  ApiList({Key key, this.result, this.secret,}) : super(key: key);
+  ApiList({Key key, this.inputList, this.secret,}) : super(key: key);
 
 // TODO リスト画面の作成
   @override
@@ -19,27 +19,27 @@ class ApiList extends StatelessWidget {
       // 下記のStreamBuilderなるものを使用する事で、入力値の取得が可能になってます。
       // streamは変更しないで下さい。
       child: StreamBuilder(
-        stream: this.result,
+        stream: this.inputList,
         // ここの中にあるColumnの所を変えて下さい。
         // 要はreturnで動的なWidget返せばいい
         // 入力された内容が inpuList にて 配列(List<String>)で取得出来ます。
         // 使用例 inputList.last : 最後の値を取得する。
-        builder: (BuildContext context, AsyncSnapshot<List> result) {
+        builder: (BuildContext context, AsyncSnapshot<List> inputList) {
           // エラー処理らしい
-          if (result.hasError) {
-            return Text('Error: ${result.error}');
+          if (inputList.hasError) {
+            return Text('Error: ${inputList.error}');
           }
-          switch (result.connectionState) {
+          switch (inputList.connectionState) {
           // ロード待ちの時らしいんだけどまあないと思う。
             // case ConnectionState.waiting:
             //   return const Text('ロード中....');
             default:
             // まだ何も検索されてない時はここ(初期状態及び起動後)
-              if (result.data == null) {
+              if (inputList.data == null) {
                 return const Text('検索して下さい');
               }
               // 検索された時の処理はここ
-              return PrintText(width, height, result, context);
+              return PrintText(width, height, inputList, context);
           }
         }
       )
@@ -47,7 +47,7 @@ class ApiList extends StatelessWidget {
   }
 }
 
-Widget PrintText(width, height, result, context) {
+Widget PrintText(width, height, inputList, context) {
 
   return SizedBox(
     height: height,
@@ -70,7 +70,7 @@ Widget PrintText(width, height, result, context) {
                 children: <Widget>[
                   // ここが表示内容
                   Text(
-                    result.data[index],
+                    inputList.data[index],
                     style: TextStyle(
                       fontSize: 40,
                     )
@@ -81,7 +81,7 @@ Widget PrintText(width, height, result, context) {
           )
         );
       },
-      itemCount: result.data.length, // データ件数
+      itemCount: inputList.data.length, // データ件数
     )
   );
 }

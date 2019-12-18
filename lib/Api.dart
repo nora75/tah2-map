@@ -20,7 +20,6 @@ class Api extends StatefulWidget {
 class _Api extends State<Api> {
   TextEditingController controller = new TextEditingController();
   List<String> inputList = [];
-  List<String> result = [];
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +52,6 @@ class _Api extends State<Api> {
             style: TextStyle(fontSize: 20.0, color: Colors.red),
             onFieldSubmitted: (term) {
               _toSink(widget.sink, inputList, controller.text, context);
-              _apiRequest(widget.resultSink, controller.text, widget.secret);
             },
             decoration: InputDecoration.collapsed(
                 border: InputBorder.none,
@@ -66,7 +64,6 @@ class _Api extends State<Api> {
                   color: Colors.lightBlue[500],
                   onPressed: () {
                     _toSink(widget.sink, inputList, controller.text, context);
-                    _apiRequest(widget.resultSink, controller.text, widget.secret);
                   },
                   child: Text("検索"),
                 ))

@@ -31,10 +31,9 @@ class MyTabIcon extends StatelessWidget{
 class MyTabContents extends StatelessWidget{
 //  final List<String> inputList;
   final Stream<List<String>> inputList;
-  final Stream<List<String>> result;
   final secret;
 
-  MyTabContents({Key key, this.inputList, this.result, this.secret}) : super(key: key);
+  MyTabContents({Key key, this.inputList, this.secret}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class MyTabContents extends StatelessWidget{
       defaultValue: 'LIST',
       childBuilder: (BuildContext context, String value){
         if (value == 'LIST') {
-          return Tab(child:ApiList(result: result, secret: secret,));
+          return Tab(child:ApiList(inputList: inputList, secret: secret,));
         } else {
           return Tab(child: ApiMap(inputList: inputList, secret: secret,));
         }},
