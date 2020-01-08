@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'Secret.dart';
@@ -14,11 +18,13 @@ class ApiList extends StatelessWidget {
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
     double height = MediaQuery.of(context).size.height; // 画面の縦幅取得
 
+    final String listKey = secret.listKey;
+
     return Container(
       padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
       // 下記のStreamBuilderなるものを使用する事で、入力値の取得が可能になってます。
       // streamは変更しないで下さい。
-      child: StreamBuilder(
+      child: StreamBuilder (
         stream: this.inputList,
         // ここの中にあるColumnの所を変えて下さい。
         // 要はreturnで動的なWidget返せばいい
@@ -39,6 +45,12 @@ class ApiList extends StatelessWidget {
                 return const Text('検索して下さい');
               }
               // 検索された時の処理はここ
+              print(inputList.data.last);
+              _apiRequest(inputList.data.last, listKey).then((list) => (
+                  // TODO この値(list)をPrintText()に渡す 2020-01-08
+                  print(list)
+                )
+              );
               return PrintText(width, height, inputList, context);
           }
         }
@@ -84,4 +96,14 @@ Widget PrintText(width, height, inputList, context) {
       itemCount: inputList.data.length, // データ件数
     )
   );
+}
+
+_apiRequest(text, listKey) async {
+  List<String> results = [];
+  http.Response response = await http.get("https://maps.googleapis.com/maps/api/place/textsearch/json?language=ja&key=" + listKey + "&query=" + text);
+  Map<String, dynamic> decoded = await json.decode(response.body);
+  for(var result in decoded['results']){
+    results.add(result['name']);
+  }
+  return results;
 }
