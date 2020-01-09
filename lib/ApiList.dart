@@ -46,12 +46,16 @@ class ApiList extends StatelessWidget {
               }
               // 検索された時の処理はここ
               print(inputList.data.last);
-              _apiRequest(inputList.data.last, listKey).then((list) => (
-                  // TODO この値(list)をPrintText()に渡す 2020-01-08
-                  print(list)
-                )
+              return FutureBuilder(
+                future: _apiRequest(inputList.data.last, listKey),
+                builder: (context, snapshot){
+                  if(!snapshot.hasData){
+                    return Text('検索中');
+                  }
+                  print(snapshot);
+                  return PrintText(width, height, snapshot, context);
+                },
               );
-              return PrintText(width, height, inputList, context);
           }
         }
       )
@@ -98,7 +102,7 @@ Widget PrintText(width, height, inputList, context) {
   );
 }
 
-_apiRequest(text, listKey) async {
+Future _apiRequest(text, listKey) async {
   List<String> results = [];
   http.Response response = await http.get("https://maps.googleapis.com/maps/api/place/textsearch/json?language=ja&key=" + listKey + "&query=" + text);
   Map<String, dynamic> decoded = await json.decode(response.body);
