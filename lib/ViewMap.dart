@@ -47,13 +47,7 @@ class _GoogleMapsState extends State<ViewMap> {
         child: CircularProgressIndicator(),
       );
     } else {
-      return MaterialApp(
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Maps Sample App'),
-            backgroundColor: Colors.green[700],
-          ),
-          body: GoogleMap(
+      return GoogleMap(
             onMapCreated: _onMapCreated,
             initialCameraPosition: CameraPosition(
               target:
@@ -61,8 +55,6 @@ class _GoogleMapsState extends State<ViewMap> {
               zoom: 17.0,
             ),
             myLocationEnabled: true,
-          ),
-        ),
       );
     }
   }
