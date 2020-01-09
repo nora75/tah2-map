@@ -75,3 +75,4 @@
 
 # Remove API Key's file
 key.json
+.vscode/*
