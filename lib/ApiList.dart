@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'Secret.dart';
 
+// ignore: must_be_immutable
 class ApiList extends StatelessWidget {
   Stream<List<String>> inputList;
   final Secret secret;
 
   ApiList({Key key, this.inputList, this.secret,}) : super(key: key);
 
-// TODO リスト画面の作成
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width; // 画面の横幅取得
